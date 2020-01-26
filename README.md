@@ -18,7 +18,7 @@ To get the Ctrl-Shift-Arrow shortcut running in Terminal.app the Terminal.app
 needs to be configured like
 [this](https://github.com/google/terminal-app-function-keys).
 
-run `:Helptags` for all Vim Plugins to enable `:help`
+run `:Helptags` for all Vim Plugins to enable `:help`  
 `vim -u NONE -c "helptags {plugin_folder}/doc" -c q`
 
 #### VIM
