@@ -40,6 +40,11 @@ set list listchars=tab:»·,trail:·,extends:>,precedes:<,nbsp:+
 fun! <SID>StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
+    " dont remove whitespace from markdown files
+    if &ft =~ 'markdown'
+        return
+    endif
+
     %s/\s\+$//e
     call cursor(l, c)
 endfun
