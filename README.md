@@ -11,7 +11,7 @@ files in this repo.
 some Vim Plugins rely on 3rd party software.  
 [Universal CTags](https://github.com/universal-ctags/ctags)  
 [Ag - the silver searcher](https://github.com/ggreer/the_silver_searcher) or
-[ripgrep](https://github.com/BurntSushi/ripgrep)
+[ripgrep](https://github.com/BurntSushi/ripgrep)  
 [fzf](https://github.com/junegunn/fzf) the path to fzf needs to be set in .vimrc  
 
 To get the Ctrl-Shift-Arrow shortcut running in Terminal.app the Terminal.app
