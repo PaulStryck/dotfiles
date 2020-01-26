@@ -1,0 +1,43 @@
+# Core
+[submodule ".vim/pack/pkgs/start/vim-gitgutter"]
+	path = .vim/pack/pkgs/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule ".vim/pack/pkgs/start/ale"]
+	path = .vim/pack/pkgs/start/ale
+	url = https://github.com/w0rp/ale
+[submodule ".vim/pack/pkgs/start/vim-closetag"]
+	path = .vim/pack/pkgs/start/vim-closetag
+	url = https://github.com/alvan/vim-closetag
+[submodule ".vim/pack/pkgs/start/fzf.vim"]
+	path = .vim/pack/pkgs/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+[submodule ".vim/pack/pkgs/start/lightline.vim"]
+	path = .vim/pack/pkgs/start/lightline.vim
+	url = https://github.com/itchyny/lightline.vim
+[submodule ".vim/pack/pkgs/start/lightline-ale"]
+	path = .vim/pack/pkgs/start/lightline-ale
+	url = https://github.com/maximbaz/lightline-ale
+[submodule ".vim/pack/pkgs/start/nerdcommenter"]
+	path = .vim/pack/pkgs/start/nerdcommenter
+	url = https://github.com/ddollar/nerdcommenter.git
+[submodule ".vim/pack/pkgs/start/nerdtree"]
+	path = .vim/pack/pkgs/start/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule ".vim/pack/pkgs/start/supertab"]
+	path = .vim/pack/pkgs/start/supertab
+	url = https://github.com/ervandew/supertab
+[submodule ".vim/pack/pkgs/start/vim-fugitive"]
+	path = .vim/pack/pkgs/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule ".vim/pack/pkgs/start/vim-polyglot"]
+	path = .vim/pack/pkgs/start/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
+[submodule ".vim/pack/pkgs/start/vim-sensible"]
+	path = .vim/pack/pkgs/start/vim-sensible
+	url = https://github.com/tpope/vim-sensible.git
+[submodule ".vim/pack/pkgs/start/vim-tmux-navigator"]
+	path = .vim/pack/pkgs/start/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator
+[submodule ".vim/pack/pkgs/start/vim-gutentags"]
+	path = .vim/pack/pkgs/start/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags
