@@ -8,9 +8,9 @@ run `bootstrap.sh` to create softlinks in your home directory to the config
 files in this repo.
 
 ### Gotchas
-some Vim Plugins rely on 3rd party software.
+some Vim Plugins rely on 3rd party software.  
 [Universal CTags](https://github.com/universal-ctags/ctags)  
-[Ag - the silver searcher][https://github.com/ggreer/the_silver_searcher] or
+[Ag - the silver searcher](https://github.com/ggreer/the_silver_searcher) or
 [ripgrep](https://github.com/BurntSushi/ripgrep)
 [fzf](https://github.com/junegunn/fzf) the path to fzf needs to be set in .vimrc  
 
