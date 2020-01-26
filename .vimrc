@@ -56,7 +56,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " Search related settings
 set hlsearch
 
-nnoremap <silent> <C-p> :<C-u>Files<CR><C-p>
+nnoremap <silent> <C-p> :<C-u>GFiles<CR><C-p>
 
 " Highlight characters behind the 80 chars margin
 :au BufWinEnter * let w:m2=matchadd('ColumnMargin', '\%>80v.\+', -1)
