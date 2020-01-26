@@ -1,5 +1,6 @@
 # ignore tags created by ctags
 tags
+tags.lock
 
 # MacOS files
 .DS_Store
