@@ -41,3 +41,6 @@
 [submodule ".vim/pack/pkgs/start/vim-gutentags"]
 	path = .vim/pack/pkgs/start/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
+[submodule ".tmux/plugins/tpm"]
+	path = .tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm

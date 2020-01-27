@@ -150,6 +150,7 @@ git submodule init
 git submodule update
 
 custom_link "$dotfileDir/.tmux.conf" "$HOME/.tmux.conf"
+custom_link "$dotfileDir/.tmux" "$HOME/.tmux"
 custom_link "$dotfileDir/.gitconfig" "$HOME/.gitconfig"
 custom_link "$dotfileDir/.gitignore_global" "$HOME/.gitignore_global"
 custom_link "$dotfileDir/.vim" "$HOME/.vim"
