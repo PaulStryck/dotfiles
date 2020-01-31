@@ -44,3 +44,6 @@
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule ".vim/pack/pkgs/start/tmuxline.vim"]
+	path = .vim/pack/pkgs/start/tmuxline.vim
+	url = https://github.com/edkolev/tmuxline.vim.git
