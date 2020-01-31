@@ -122,6 +122,9 @@ au BufNewFile,BufRead *.json set ft=javascript
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 au FileType ruby   set softtabstop=2 tabstop=2 shiftwidth=2
 
+" editorconfig.org file manages project specific settings
+" disable for fugitve and ssh files
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " Use Ag instead of Ack
 let g:ackprg = 'ag --nogroup --nocolor --column'

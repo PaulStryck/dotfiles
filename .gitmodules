@@ -47,3 +47,6 @@
 [submodule ".vim/pack/pkgs/start/tmuxline.vim"]
 	path = .vim/pack/pkgs/start/tmuxline.vim
 	url = https://github.com/edkolev/tmuxline.vim.git
+[submodule ".vim/pack/pkgs/start/editorconfig-vim"]
+	path = .vim/pack/pkgs/start/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim.git
