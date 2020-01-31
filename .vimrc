@@ -61,6 +61,9 @@ nnoremap <silent> <C-p> :<C-u>GFiles<CR><C-p>
 " Highlight characters behind the 80 chars margin
 :au BufWinEnter * let w:m2=matchadd('ColumnMargin', '\%>80v.\+', -1)
 
+" Highlight Column in lines exceeding the line limit set in .editorconf
+let g:EditorConfig_max_line_indicator = "exceeding"
+
 " Disable code folding
 set nofoldenable
 
