@@ -171,3 +171,38 @@ let g:lightline.active = {
       \       ['fileformat', 'fileencoding', 'filetype'],
       \   ],
       \ }
+
+" tmuxline
+
+
+" let g:tmuxline_preset = {
+"             \'a'    : '#S',
+"             \'win'  : [ '#I', '#W' ],
+"             \'cwin' : [ '#I', '#W', '#F' ],
+"             \'x'    : "#{network_bandwidth}",
+"             \'y'    : ['%R', '%a %b %d'],
+"             \'z'    : '#H #{prefix_highlight}',
+"             \'options' : {
+"             \   'status-justify': 'left'
+"             \ }
+"             \}
+
+let g:tmuxline_preset = {
+            \'a'    : '#S',
+            \'win'  : [ '#I', '#W' ],
+            \'cwin' : [ '#I', '#W', '#F' ],
+            \'y'    : ['%R', '%a %b %d'],
+            \'z'    : '#H #{prefix_highlight}',
+            \'options' : {
+            \   'status-justify': 'left'
+            \ }
+            \}
+
+
+let g:tmuxline_separators = {
+    \ 'left' : '',
+    \ 'left_alt': "|",
+    \ 'right' : '',
+    \ 'right_alt' : '|',
+    \ 'space' : ' '
+    \}
