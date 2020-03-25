@@ -1,3 +1,6 @@
+# pythons virtual environments
+venv
+
 # ignore tags created by ctags
 tags
 tags.lock
