@@ -23,9 +23,6 @@
 [submodule ".vim/pack/pkgs/start/nerdtree"]
 	path = .vim/pack/pkgs/start/nerdtree
 	url = https://github.com/scrooloose/nerdtree
-[submodule ".vim/pack/pkgs/start/supertab"]
-	path = .vim/pack/pkgs/start/supertab
-	url = https://github.com/ervandew/supertab
 [submodule ".vim/pack/pkgs/start/vim-fugitive"]
 	path = .vim/pack/pkgs/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
@@ -50,3 +47,9 @@
 [submodule ".vim/pack/pkgs/start/editorconfig-vim"]
 	path = .vim/pack/pkgs/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
+[submodule ".zsh/lib/plugins/spaceship"]
+	path = .zsh/lib/plugins/spaceship
+	url = https://github.com/denysdovhan/spaceship-prompt.git
+[submodule ".vim/pack/pkgs/start/coc.nvim"]
+	path = .vim/pack/pkgs/start/coc.nvim
+	url = https://github.com/neoclide/coc.nvim
