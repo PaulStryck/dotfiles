@@ -34,3 +34,12 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# typical build files
+*.lock
+
+# Haskell build dirs
+.stack-work
+
+# Node.js virtual environments
+nvenv
