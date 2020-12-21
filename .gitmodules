@@ -53,9 +53,3 @@
 [submodule ".vim/pack/pkgs/start/coc.nvim"]
 	path = .vim/pack/pkgs/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
-[submodule ".vim/pack/pkgs/start/tagbar"]
-	path = .vim/pack/pkgs/start/tagbar
-	url = https://github.com/majutsushi/tagbar.git
-[submodule ".vim/pack/pkgs/start/vim-diminactive"]
-	path = .vim/pack/pkgs/start/vim-diminactive
-	url = https://github.com/blueyed/vim-diminactive
