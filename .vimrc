@@ -1,6 +1,9 @@
 " load sensible defaults here to allow overriding
 runtime! plugin/sensible.vim
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" BASICS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 
 " TextEdit might fail if hidden is not set.
@@ -15,9 +18,6 @@ set shortmess+=c
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
-
-" Set fzf runtime
-set rtp+=/usr/local/opt/fzf
 
 " Colorscheme see https://github.com/hukl/Smyck-Color-Scheme
 color smyck
@@ -47,6 +47,43 @@ set noshowmode
 " default of 4000ms leads to significant delays
 set updatetime=250
 
+" Show trailing spaces and highlight hard tabs
+" this overrides settings from vim-sensible
+set list listchars=tab:»·,trail:·,extends:>,precedes:<,nbsp:+
+
+" Strip trailing whitespaces on each save
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    " dont remove whitespace from markdown files
+    if &ft =~ 'markdown'
+        return
+    endif
+
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+augroup strpWhitesp
+  autocmd!
+  autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+augroup end
+
+" Search related settings
+set hlsearch
+
+" Highlight characters behind the 80 chars margin
+:au BufWinEnter * let w:m2=matchadd('ColumnMargin', '\%>80v.\+', -1)
+
+" Disable code folding
+set nofoldenable
+
+" Jump to last position when reopening a file
+augroup jmpLast
+  autocmd!
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup end
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Filetype specific indentation
@@ -64,52 +101,11 @@ au FileType go set noexpandtab tabstop=4 shiftwidth=4
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
 
 " add json syntax highlighting
-au BufNewFile,BufRead *.json set ft=javascript
+" au BufNewFile,BufRead *.json set ft=json
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 au FileType ruby   set softtabstop=2 tabstop=2 shiftwidth=2
-
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" BASICS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Show trailing spaces and highlight hard tabs
-" this overrides settings from vim-sensible
-set list listchars=tab:»·,trail:·,extends:>,precedes:<,nbsp:+
-
-" Strip trailing whitespaces on each save
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    " dont remove whitespace from markdown files
-    if &ft =~ 'markdown'
-        return
-    endif
-
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
-
-" Search related settings
-set hlsearch
-
-" Ctrl-P for fzf File view
-nnoremap <silent> <C-p> :<C-u>Files<CR><C-p>
-
-" Highlight characters behind the 80 chars margin
-:au BufWinEnter * let w:m2=matchadd('ColumnMargin', '\%>80v.\+', -1)
-
-" Disable code folding
-set nofoldenable
-
-" Jump to last position when reopening a file
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -140,7 +136,10 @@ let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '^venv$', '^__pycache__$', '^tags
 map <Leader>n :NERDTreeToggle<CR>
 
 " Close window if last remaining window is NerdTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup clsLast
+  autocmd!
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup end
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -153,6 +152,9 @@ let g:EditorConfig_max_line_indicator = "exceeding"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN ale
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" disable lsp for ale, so coc.nvim handles all lsp services
+let g:ale_disable_lsp = 1
+
 " Always show ALE Gutter
 let g:ale_sign_column_always = 1
 
@@ -185,6 +187,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NONE
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN vim-closetag
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -212,8 +215,15 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN fzf.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set fzf runtime
+set rtp+=/usr/local/opt/fzf
+
 " Use Ag instead of Ack
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" Ctrl-P for fzf File view
+nnoremap <silent> <C-p> :<C-u>Files<CR><C-p>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN lightline.vim
@@ -294,7 +304,9 @@ let g:tmuxline_separators = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN coc.nvim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use tab for trigger completion with characters ahead and navigate.
+" Use tab to:
+"   • trigger completion with characters ahead
+"   • navigation
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
