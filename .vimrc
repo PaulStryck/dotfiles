@@ -12,14 +12,12 @@ set cmdheight=2
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
 
 " Set fzf runtime
 set rtp+=/usr/local/opt/fzf
-
 
 " Colorscheme see https://github.com/hukl/Smyck-Color-Scheme
 color smyck
@@ -46,7 +44,256 @@ set expandtab
 " Disable Mode Display because Status line is on
 set noshowmode
 
-" Autocompletion coc.nvim plugin
+" default of 4000ms leads to significant delays
+set updatetime=250
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Filetype specific indentation
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" make uses real tabs
+au FileType make set noexpandtab
+
+" Ruby uses 2 spaces
+au FileType ruby set softtabstop=2 tabstop=2 shiftwidth=2
+
+" Go uses tabs
+au FileType go set noexpandtab tabstop=4 shiftwidth=4
+
+" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
+
+" add json syntax highlighting
+au BufNewFile,BufRead *.json set ft=javascript
+
+" make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
+au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+au FileType ruby   set softtabstop=2 tabstop=2 shiftwidth=2
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" BASICS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Show trailing spaces and highlight hard tabs
+" this overrides settings from vim-sensible
+set list listchars=tab:»·,trail:·,extends:>,precedes:<,nbsp:+
+
+" Strip trailing whitespaces on each save
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    " dont remove whitespace from markdown files
+    if &ft =~ 'markdown'
+        return
+    endif
+
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+
+" Search related settings
+set hlsearch
+
+" Ctrl-P for fzf File view
+nnoremap <silent> <C-p> :<C-u>Files<CR><C-p>
+
+" Highlight characters behind the 80 chars margin
+:au BufWinEnter * let w:m2=matchadd('ColumnMargin', '\%>80v.\+', -1)
+
+" Disable code folding
+set nofoldenable
+
+" Jump to last position when reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN vim-tmux-navigator
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set vim and tmux window switch shortcuts
+let g:tmux_navigator_no_mappings = 1
+
+" map xterm key sequences explicitly because tmux uses screen terminal
+nnoremap <silent> <ESC>[1;6A :TmuxNavigateUp<cr>
+nnoremap <silent> <ESC>[1;6B :TmuxNavigateDown<cr>
+nnoremap <silent> <ESC>[1;6C :TmuxNavigateRight<cr>
+nnoremap <silent> <ESC>[1;6D :TmuxNavigateLeft<cr>
+
+
+" map to the correct key sequence when running in xterm
+nnoremap <silent> <C-S-Left>  :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-S-Down>  :TmuxNavigateDown<cr>
+nnoremap <silent> <C-S-Up>    :TmuxNavigateUp<cr>
+nnoremap <silent> <C-S-Right> :TmuxNavigateRight<cr>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN nerdtree
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree configuration
+let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '^venv$', '^__pycache__$', '^tags']
+map <Leader>n :NERDTreeToggle<CR>
+
+" Close window if last remaining window is NerdTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN editorconf
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Highlight Column in lines exceeding the line limit set in .editorconf
+let g:EditorConfig_max_line_indicator = "exceeding"
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN ale
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Always show ALE Gutter
+let g:ale_sign_column_always = 1
+
+" No bgcolor for ALE SignColumn
+highlight clear SignColumn
+
+" ALE Linting Settings
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN vim-gutentags
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ignore JS files on CTAGS generation
+let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore', '*.js', '*.json', '*.css']
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN editorconfig-vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" editorconfig.org file manages project specific settings
+" disable for fugitve and ssh files
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN nerdcommenter
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NONE
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN vim-closetag
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NONE
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN vim-fugitive
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NONE
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN vim-gitgutter
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NONE
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN vim-polyglot
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NONE
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN fzf.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use Ag instead of Ack
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN lightline.vim
+"" PLUGIN lightline-ale
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:lightline = {
+            \ 'colorscheme': 'smyck',
+            \ 'component_function' : {
+            \   'gitbranch' : 'fugitive#head',
+            \ },
+    \}
+
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+
+let g:lightline.component_type = {
+      \   'linter_checking': 'left',
+      \   'linter_warnings': 'warning',
+      \   'linter_errors': 'error',
+      \   'linter_ok': 'left',
+      \ }
+
+
+let g:lightline.active = {
+      \   'left' : [ ['mode', 'paste'],
+      \              [ 'gitbranch', 'readonly', 'filename', 'modified'  ] ],
+      \   'right': [
+      \       ['linter_checking',
+      \           'linter_errors',
+      \           'linter_warnings',
+      \           'linter_ok'],
+      \       ['lineinfo'],
+      \       ['fileformat', 'fileencoding', 'filetype'],
+      \   ],
+      \ }
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN tmuxline.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:tmuxline_preset = {
+"             \'a'    : '#S',
+"             \'win'  : [ '#I', '#W' ],
+"             \'cwin' : [ '#I', '#W', '#F' ],
+"             \'x'    : "#{network_bandwidth}",
+"             \'y'    : ['%R', '%a %b %d'],
+"             \'z'    : '#H #{prefix_highlight}',
+"             \'options' : {
+"             \   'status-justify': 'left'
+"             \ }
+"             \}
+
+let g:tmuxline_preset = {
+            \'a'    : '#S',
+            \'win'  : [ '#I', '#W' ],
+            \'cwin' : [ '#I', '#W', '#F' ],
+            \'y'    : ['%R', '%a %b %d'],
+            \'z'    : '#H #{prefix_highlight}',
+            \'options' : {
+            \   'status-justify': 'left'
+            \ }
+            \}
+
+
+let g:tmuxline_separators = {
+    \ 'left' : '',
+    \ 'left_alt': "|",
+    \ 'right' : '',
+    \ 'right_alt' : '|',
+    \ 'space' : ' '
+    \}
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN coc.nvim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -64,12 +311,12 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
-if has('patch8.1.1068')
-  " Use `complete_info` if your (Neo)Vim version supports it.
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+" if has('patch8.1.1068')
+"   " Use `complete_info` if your (Neo)Vim version supports it.
+"   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" else
+"   imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" endif
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -164,183 +411,3 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-" Show trailing spaces and highlight hard tabs
-" this overrides settings from vim-sensible
-set list listchars=tab:»·,trail:·,extends:>,precedes:<,nbsp:+
-
-" Strip trailing whitespaces on each save
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    " dont remove whitespace from markdown files
-    if &ft =~ 'markdown'
-        return
-    endif
-
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
-" Close window if last remaining window is NerdTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" Search related settings
-set hlsearch
-
-" Ctrl-P for fzf File view
-nnoremap <silent> <C-p> :<C-u>Files<CR><C-p>
-
-" Highlight characters behind the 80 chars margin
-:au BufWinEnter * let w:m2=matchadd('ColumnMargin', '\%>80v.\+', -1)
-
-" Highlight Column in lines exceeding the line limit set in .editorconf
-let g:EditorConfig_max_line_indicator = "exceeding"
-
-" Disable code folding
-set nofoldenable
-
-" Jump to last position when reopening a file
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
-" set vim and tmux window switch shortcuts
-let g:tmux_navigator_no_mappings = 1
-
-" map xterm key sequences explicitly because tmux uses screen terminal
-nnoremap <silent> <ESC>[1;6A :TmuxNavigateUp<cr>
-nnoremap <silent> <ESC>[1;6B :TmuxNavigateDown<cr>
-nnoremap <silent> <ESC>[1;6C :TmuxNavigateRight<cr>
-nnoremap <silent> <ESC>[1;6D :TmuxNavigateLeft<cr>
-
-
-" map to the correct key sequence when running in xterm
-nnoremap <silent> <C-S-Left>  :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-S-Down>  :TmuxNavigateDown<cr>
-nnoremap <silent> <C-S-Up>    :TmuxNavigateUp<cr>
-nnoremap <silent> <C-S-Right> :TmuxNavigateRight<cr>
-
-" NERDTree configuration
-let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '^venv$', '^__pycache__$', '^tags']
-map <Leader>n :NERDTreeToggle<CR>
-
-
-" Always show ALE Gutter
-let g:ale_sign_column_always = 1
-
-
-" No bgcolor for ALE SignColumn
-highlight clear SignColumn
-
-" ALE Linting Settings
-" Erlang linting done via https://github.com/ten0s/syntaxerl
-" Download/Build it and put it in your $PATH
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\}
-
-" Ignorde JS files on CTAGS generation
-let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore', '*.js', '*.json', '*.css']
-
-" make uses real tabs
-au FileType make set noexpandtab
-
-" Ruby uses 2 spaces
-au FileType ruby set softtabstop=2 tabstop=2 shiftwidth=2
-
-" Go uses tabs
-au FileType go set noexpandtab tabstop=4 shiftwidth=4
-
-" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
-
-" add json syntax highlighting
-au BufNewFile,BufRead *.json set ft=javascript
-
-" make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
-au FileType ruby   set softtabstop=2 tabstop=2 shiftwidth=2
-
-" editorconfig.org file manages project specific settings
-" disable for fugitve and ssh files
-let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
-
-" Use Ag instead of Ack
-let g:ackprg = 'ag --nogroup --nocolor --column'
-
-" default of 4000ms leads to significant delays
-set updatetime=250
-
-" lightline / Ale
-
-let g:lightline = {
-            \ 'colorscheme': 'smyck',
-            \ 'component_function' : {
-            \   'gitbranch' : 'fugitive#head',
-            \ },
-    \}
-
-let g:lightline.component_expand = {
-      \  'linter_checking': 'lightline#ale#checking',
-      \  'linter_warnings': 'lightline#ale#warnings',
-      \  'linter_errors': 'lightline#ale#errors',
-      \  'linter_ok': 'lightline#ale#ok',
-      \ }
-
-let g:lightline.component_type = {
-      \   'linter_checking': 'left',
-      \   'linter_warnings': 'warning',
-      \   'linter_errors': 'error',
-      \   'linter_ok': 'left',
-      \ }
-
-
-let g:lightline.active = {
-      \   'left' : [ ['mode', 'paste'],
-      \              [ 'gitbranch', 'readonly', 'filename', 'modified'  ] ],
-      \   'right': [
-      \       ['linter_checking',
-      \           'linter_errors',
-      \           'linter_warnings',
-      \           'linter_ok'],
-      \       ['lineinfo'],
-      \       ['fileformat', 'fileencoding', 'filetype'],
-      \   ],
-      \ }
-
-" tmuxline
-
-
-" let g:tmuxline_preset = {
-"             \'a'    : '#S',
-"             \'win'  : [ '#I', '#W' ],
-"             \'cwin' : [ '#I', '#W', '#F' ],
-"             \'x'    : "#{network_bandwidth}",
-"             \'y'    : ['%R', '%a %b %d'],
-"             \'z'    : '#H #{prefix_highlight}',
-"             \'options' : {
-"             \   'status-justify': 'left'
-"             \ }
-"             \}
-
-let g:tmuxline_preset = {
-            \'a'    : '#S',
-            \'win'  : [ '#I', '#W' ],
-            \'cwin' : [ '#I', '#W', '#F' ],
-            \'y'    : ['%R', '%a %b %d'],
-            \'z'    : '#H #{prefix_highlight}',
-            \'options' : {
-            \   'status-justify': 'left'
-            \ }
-            \}
-
-
-let g:tmuxline_separators = {
-    \ 'left' : '',
-    \ 'left_alt': "|",
-    \ 'right' : '',
-    \ 'right_alt' : '|',
-    \ 'space' : ' '
-    \}
