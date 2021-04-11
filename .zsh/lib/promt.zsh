@@ -5,10 +5,8 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git svn
 zstyle ':vcs_info:*:prompt:*' check-for-changes true
 
-setopt prompt_subst
-autoload -U promptinit
-promptinit
-prompt spaceship
+
+eval "$(starship init zsh)"
 
 # Look at http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Version-Control-Information
 # for mor options
