@@ -85,6 +85,8 @@ augroup jmpLast
 augroup end
 
 
+
+let g:python3_host_prog = '/usr/local/bin/python3'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Filetype specific indentation
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -163,9 +165,25 @@ highlight clear SignColumn
 
 " ALE Linting Settings
 let g:ale_linters = {
+\   'tex': ['lty'],
 \   'javascript': ['eslint'],
+\   'plaintex': ['lty'],
 \}
 
+let g:ale_tex_lty_command = 'languagetool'
+let g:ale_tex_lty_server_command = 'languagetool-server'
+" set to '' to disable server usage or to 'lt' for LT's Web server
+let g:ale_tex_lty_server = 'my'
+" default language: 'en-GB'
+let g:ale_tex_lty_language = 'en-GB'
+" default disabled LT rules: 'WHITESPACE_RULE'
+let g:ale_tex_lty_disable = 'WHITESPACE_RULE'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" PLUGIN vimtex
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vimtex_compiler_progname = 'nvr'
+let g:vimtex_view_method = 'skim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN vim-gutentags
