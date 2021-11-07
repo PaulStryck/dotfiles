@@ -144,14 +144,6 @@ augroup clsLast
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup end
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" PLUGIN editorconf
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Highlight Column in lines exceeding the line limit set in .editorconf
-let g:EditorConfig_max_line_indicator = "exceeding"
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN ale
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -191,6 +183,9 @@ let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore', '*.js',
 "" PLUGIN editorconfig-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " editorconfig.org file manages project specific settings
+" Highlight Column in lines exceeding the line limit set in .editorconf
+let g:EditorConfig_max_line_indicator = "exceeding"
+
 " disable for fugitve and ssh files
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
