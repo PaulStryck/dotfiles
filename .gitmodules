@@ -50,9 +50,6 @@
 [submodule ".zsh/lib/plugins/spaceship"]
     path = .zsh/lib/plugins/spaceship
     url = https://github.com/denysdovhan/spaceship-prompt.git
-[submodule ".vim/pack/pkgs/start/vimtex"]
-	path = .vim/pack/pkgs/start/vimtex
-	url = https://github.com/lervag/vimtex.git
 [submodule ".vim/pack/pkgs/start/nvim-lspconfig"]
 	path = .vim/pack/pkgs/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git

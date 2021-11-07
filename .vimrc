@@ -181,12 +181,6 @@ let g:ale_tex_lty_language = 'en-GB'
 let g:ale_tex_lty_disable = 'WHITESPACE_RULE'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" PLUGIN vimtex
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vimtex_compiler_progname = 'nvr'
-let g:vimtex_view_method = 'skim'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN vim-gutentags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ignore JS files on CTAGS generation
