@@ -53,3 +53,15 @@
 [submodule ".vim/pack/pkgs/start/nvim-lspconfig"]
 	path = .vim/pack/pkgs/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule ".vim/pack/pkgs/start/nvim-cmp"]
+	path = .vim/pack/pkgs/start/nvim-cmp
+	url = git@github.com:hrsh7th/nvim-cmp.git
+[submodule ".vim/pack/pkgs/start/cmp-nvim-lsp"]
+	path = .vim/pack/pkgs/start/cmp-nvim-lsp
+	url = git@github.com:hrsh7th/cmp-nvim-lsp.git
+[submodule ".vim/pack/pkgs/start/vim-vsnip"]
+	path = .vim/pack/pkgs/start/vim-vsnip
+	url = git@github.com:hrsh7th/vim-vsnip.git
+[submodule ".vim/pack/pkgs/start/cmp-vsnip"]
+	path = .vim/pack/pkgs/start/cmp-vsnip
+	url = git@github.com:hrsh7th/cmp-vsnip.git
