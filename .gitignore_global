@@ -43,3 +43,8 @@ Temporary Items
 
 # Node.js virtual environments
 nvenv
+
+# Fortran Builds
+*.mod
+*.out
+
