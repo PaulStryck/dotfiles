@@ -176,7 +176,9 @@ let g:ale_tex_lty_disable = 'WHITESPACE_RULE'
 "" PLUGIN vim-gutentags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ignore JS files on CTAGS generation
-let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore', '*.js', '*.json', '*.css']
+set statusline+=%{gutentags#statusline()}
+let g:gutentags_ctags_exclude = ['.gitignore', '.svnignore', '.cvsignore', '*.js', '*.json', '*.css']
+let g:gutentags_ctags_executable = "`brew --prefix`/bin/ctags"
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -224,7 +226,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 "" PLUGIN fzf.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set fzf runtime
-set rtp+=/usr/local/opt/fzf
+set rtp+=/opt/homebrew/opt/fzf
 
 " Use Ag instead of Ack
 let g:ackprg = 'ag --nogroup --nocolor --column'

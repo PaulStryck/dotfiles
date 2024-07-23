@@ -1,4 +1,4 @@
-export ZSH=~/.zsh
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -12,12 +12,9 @@ fpath=($HOME/.zsh/lib/zfunctions $fpath)
 # load all config files from lib folder
 for config_file ($ZSH/lib/*.zsh) source $config_file
 
-
 # Load and run compinit
 autoload -U compinit
 compinit -i
-
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # time output format
 TIMEFMT=$'\n================\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
