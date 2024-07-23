@@ -1,9 +1,6 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
-export EDITOR=vi
+export EDITOR=nvim
 
 # Extend Autocomplete Search Path
 fpath=($HOME/.zsh/lib/completions $fpath)
